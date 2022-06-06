@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Stone scissors paper</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="confirmative_info">I understand</string>
+    <string name="rules_description">Rock->siccors->paper->rock</string>
+    <string name="info_button">Instruction</string>
+    <string name="exit_button">Exit</string>
+
+    <string name="siccors_button">Siccors</string>
+    <string name="rock_button">Rock</string>
+    <string name="paper_button">Paper</string>
+    <string name="game_choice">game choice</string>
+
+    <string name="result_draw">DRAW</string>
+    <string name="result_win">WIN</string>
+    <string name="result_lose">LOSE</string>
+    <string name="start_game">Start</string>
+</resources>
