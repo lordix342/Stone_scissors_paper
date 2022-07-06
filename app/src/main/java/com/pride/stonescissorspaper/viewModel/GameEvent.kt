@@ -23,7 +23,7 @@ class GameEvent(application: Application) : AndroidViewModel(application) {
         val randomNumb = (7..15).random()
         viewModelScope.launch {
             for (i in 0..randomNumb) {
-                delay(200L)
+                delay(300L)
                 if (position >= 3) position = 0
                 _resIdImageForUse.value = gameChoices[position]
                 position++
@@ -31,19 +31,19 @@ class GameEvent(application: Application) : AndroidViewModel(application) {
             }
             when (playerChoice) {
                 R.drawable.siccors -> when (resIdImageForUse.value) {
-                    R.drawable.siccors -> _gameResult.value = R.string.result_draw
-                    R.drawable.rock -> _gameResult.value = R.string.result_lose
-                    R.drawable.paper -> _gameResult.value = R.string.result_win
+                    R.drawable.siccors -> _gameResult.value = R.drawable.draw_mb_prev
+                    R.drawable.rock -> _gameResult.value = R.drawable.defeat_mb_prev
+                    R.drawable.paper -> _gameResult.value = R.drawable.victory_mb_prev
                 }
                 R.drawable.rock -> when (resIdImageForUse.value) {
-                    R.drawable.siccors -> _gameResult.value = R.string.result_win
-                    R.drawable.rock -> _gameResult.value = R.string.result_draw
-                    R.drawable.paper -> _gameResult.value = R.string.result_lose
+                    R.drawable.siccors -> _gameResult.value = R.drawable.victory_mb_prev
+                    R.drawable.rock -> _gameResult.value = R.drawable.draw_mb_prev
+                    R.drawable.paper -> _gameResult.value = R.drawable.defeat_mb_prev
                 }
                 R.drawable.paper -> when (resIdImageForUse.value) {
-                    R.drawable.siccors -> _gameResult.value = R.string.result_lose
-                    R.drawable.rock -> _gameResult.value = R.string.result_win
-                    R.drawable.paper -> _gameResult.value = R.string.result_draw
+                    R.drawable.siccors -> _gameResult.value = R.drawable.defeat_mb_prev
+                    R.drawable.rock -> _gameResult.value = R.drawable.victory_mb_prev
+                    R.drawable.paper -> _gameResult.value = R.drawable.draw_mb_prev
                 }
             }
             gameResult.value = _gameResult.value

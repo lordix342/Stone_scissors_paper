@@ -1,12 +1,12 @@
 package com.pride.stonescissorspaper
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.LinearInterpolator
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -29,6 +29,10 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.anim)
+        anim.interpolator = LinearInterpolator()
+        anim.repeatCount = 0
+
         binding.apply {
             binstruction.setOnClickListener {
                 Navigation.findNavController(binding.root).navigate(R.id.action_gameFragment_to_infoFragment)
@@ -38,16 +42,35 @@ class GameFragment : Fragment() {
             }
             brock.setOnClickListener {
                 gameVM.runGame(R.drawable.rock)
+                binding.result.visibility = View.GONE
             }
             bpaper.setOnClickListener {
                 gameVM.runGame(R.drawable.paper)
+                binding.result.visibility = View.GONE
             }
             bsiccors.setOnClickListener {
                 gameVM.runGame(R.drawable.siccors)
+                binding.result.visibility = View.GONE
             }
         }
         gameVM.resIdImageForUse.observe(viewLifecycleOwner) {
-            binding.gameselection.setImageResource(it)
+            if (it!=null) {
+                binding.gameselection.startAnimation(anim)
+                anim.setAnimationListener(object : Animation.AnimationListener {
+                    override fun onAnimationStart(p0: Animation?) {
+                    }
+
+                    override fun onAnimationEnd(p0: Animation?) {
+                        binding.gameselection.clearAnimation()
+                    }
+
+                    override fun onAnimationRepeat(p0: Animation?) {
+                        binding.gameselection.clearAnimation()
+                    }
+                })
+                binding.gameselection.setImageResource(it)
+            }
+
         }
         gameVM.gameResult.observe(viewLifecycleOwner) {
             if (it != null) showResult(it)
@@ -56,5 +79,24 @@ class GameFragment : Fragment() {
     }
 
     private fun showResult(resId: Int) {
+        binding.imageResult.setImageResource(resId)
+        binding.result.visibility = View.VISIBLE
+        val animRes = AnimationUtils.loadAnimation(requireContext(), R.anim.anim_result)
+        animRes.interpolator = LinearInterpolator()
+        animRes.repeatCount = 0
+        binding.imageResult.startAnimation(animRes)
+        animRes.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(p0: Animation?) {
+            }
+
+            override fun onAnimationEnd(p0: Animation?) {
+                binding.imageResult.clearAnimation()
+            }
+
+            override fun onAnimationRepeat(p0: Animation?) {
+                binding.imageResult.clearAnimation()
+            }
+        })
+
     }
 }
