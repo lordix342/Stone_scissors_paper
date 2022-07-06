@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package com.pride.stonescissorspaper
 
 import android.os.Bundle
@@ -11,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import com.pride.stonescissorspaper.databinding.FragmentGameBinding
 import com.pride.stonescissorspaper.viewModel.GameEvent
 
@@ -31,6 +30,12 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            binstruction.setOnClickListener {
+                Navigation.findNavController(binding.root).navigate(R.id.action_gameFragment_to_infoFragment)
+            }
+            bexit.setOnClickListener {
+                activity?.finish()
+            }
             brock.setOnClickListener {
                 gameVM.runGame(R.drawable.rock)
             }
@@ -51,12 +56,5 @@ class GameFragment : Fragment() {
     }
 
     private fun showResult(resId: Int) {
-        val toast = Toast.makeText(requireContext(), resId, Toast.LENGTH_SHORT)
-        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
-        val textToast = toast.view?.findViewById<TextView>(android.R.id.message)
-        textToast?.setTextColor(resources.getColor(R.color.black))
-        textToast?.textSize = 34f
-        textToast?.setBackgroundColor(resources.getColor(R.color.white))
-        toast.show()
     }
 }

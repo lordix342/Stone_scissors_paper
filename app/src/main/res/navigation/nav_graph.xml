@@ -20,11 +20,5 @@
         android:id="@+id/infoFragment"
         android:name="com.pride.stonescissorspaper.InfoFragment"
         android:label="fragment_info"
-        tools:layout="@layout/fragment_info" >
-        <action
-            android:id="@+id/action_infoFragment_to_gameFragment"
-            app:destination="@id/gameFragment"
-            app:enterAnim="@android:anim/slide_out_right"
-            app:exitAnim="@android:anim/slide_out_right" />
-    </fragment>
+        tools:layout="@layout/fragment_info" />
 </navigation>
